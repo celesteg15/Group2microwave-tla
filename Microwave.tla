@@ -52,7 +52,7 @@ Start ==
   /\ ImplementStartSafety => door = CLOSED
   /\ timeRemaining > 0
   /\ radiation' = ON
-  /\ UNCHANGED << door, timeRemaining >>
+  /\ UNCHANGED << timeRemaining >>
 
 \* Cancel radiation and reset remaining time
 Cancel ==
@@ -73,10 +73,10 @@ Tick ==
 \* Open door
 OpenDoor ==
   /\ door' = OPEN
-  /\ IF ImplementOpenDoorSafety 
-     THEN radiation' = OFF 
-     ELSE UNCHANGED << radiation >>
-  /\ UNCHANGED << timeRemaining >>
+  \* /\ IF ImplementOpenDoorSafety 
+   \*  THEN radiation' = OFF 
+    \* ELSE UNCHANGED << radiation >> 
+  /\ UNCHANGED << radiationtimeRemaining >>
 
 \* Close door
 CloseDoor ==
@@ -117,4 +117,4 @@ RunsUntilDoneOrInterrupted ==
     action := "timer"
 *)
 
-\* DoorSafety == RequireSafety => radiation = ON => door = CLOSED
+DoorSafety == RequireSafety => radiation = ON => door = CLOSED
